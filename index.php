@@ -70,6 +70,7 @@
           <thead>
             <tr>
               <th scope="col">id Libro</th>
+              <th scope="col">Titulo</th>
               <th scope="col">Autor</th>
               <th scope="col">Categoria</th>
               <th scope="col">Fecha</th>
@@ -83,6 +84,7 @@
 
             <tr>
               <th scope="row">1</th>
+              <td>Mark</td>
               <td>Mark</td>
               <td>Otto</td>
               <td>@mdo</td>
