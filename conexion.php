@@ -1,5 +1,11 @@
 <?php
 
+/*
+clase de conexion a mysql con PDO, clase que salio a partir de la version 5.1 de php
+importante los caracteres uft8Mb4, para poder usarlo en un cms , 
+los atriubutos privados, y el contructor publico,  
+se realiza una instancia y se conecta a la base de datos. 
+*/
 class Conexion{
 
     private $host = "localhost";
