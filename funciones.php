@@ -18,16 +18,19 @@ function subirImagen(){
         move_uploaded_file( $_FILES["imagen"]['tmp_name'],$ubicacion);
         
         return $nuevoNombre;
-
     }
 }
 
 
-
-
+/**
+ * obtiene solo un registro, en este caso la imagen en especifico. 
+ *
+ * @param idLibro
+ * @return listaImagenes 
+ */
 function obtenerNombreImagen($idLibro){
 
-    $conexion = new Conexion();
+    include('conexion.php');
     $stmt = $conexion->prepare("SELECT Imagen FROM Libros WHERE idLibro ='$idLibro' ");
     $stmt->execute();
     $resultado = $stmt->fetchAll();
@@ -37,6 +40,19 @@ function obtenerNombreImagen($idLibro){
 }
 
 
+/**
+ * obtiene todos los registros de la tabla Libros 
+ *
+ * @return Libros registros
+ */
+function obtenerLibros(){
+
+    include('conexion.php');
+    $stmt = $conexion->prepare("SELECT * FROM Libros ");
+    $stmt->execute();
+    $resultado = $stmt->fetchAll();
+    return $stmt->rowCount();
+}
 
 
 ?>

@@ -61,7 +61,7 @@
     </div>
     <br><br>
 
-
+    <!-- tabla -->
     <div class="container fondo">
 
       <div class="table-responsive">
@@ -76,37 +76,11 @@
               <th scope="col">Fecha</th>
               <th scope="col">Resumen</th>
               <th scope="col">Imagen Libro</th>
-              <th scope="col">Editar</th>
-              <th scope="col">Borrar</th>
+              <th scope="col"><i class="bi bi-layout-text-sidebar-reverse"> Editar</th>
+              <th scope="col"><i class="bi bi-trash-fill"> Borrar</th>
             </tr>
           </thead>
-          <tbody>
-
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-
-
-              <td>
-                <a href="">
-                  <i class="bi bi-layout-text-sidebar-reverse">Modificar</i>
-                </a>
-              </td>
-
-              <td>
-               <a href="">
-                <i class="bi bi-trash-fill">Eliminar</i>
-               </a> 
-              </td>
-            </tr>
-
-
-          </tbody>
+          
         </table>
 
       </div>
@@ -131,7 +105,7 @@
         </div>
         <div class="modal-body">
 
-          <form method="post" id="formulario" enctype="multipart/form-data" action="">
+          <form class="needs-validation" method="post" id="formulario" enctype="multipart/form-data" action="">
 
             <div class="col-12">
               <label for="titulo">Titulo</label>
@@ -201,10 +175,9 @@
 
 
 
-  <!-- jQuery 3.6-->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+  <!-- jQuery 3.5   VERSION ESTABLE-->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
   <!-- script  datatables js -->
   <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
@@ -213,6 +186,43 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+
+
+  <!-- funcionabilidades-->
+
+  <script type="text/javascript">
+
+    $(document).ready(function(){
+        console.log("se cargo el documento... ");
+        var datatable = $('#datosLibros').DataTable({
+          "processing":true,
+          "serverSide":true,
+          "order":[],
+          "ajax":{
+            url:"registros.php",
+            type:"POST"
+          },
+          "columnsDefs":[
+            {
+              "targets":[0,3,4],
+              "orderable":false,
+            },
+          ]
+        });
+      }
+
+    );
+
+    
+
+
+  </script>
+
+
+
+
+
+
 </body>
 
 </html>

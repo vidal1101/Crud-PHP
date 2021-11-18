@@ -21,7 +21,7 @@ class Conexion{
 
             $this->connect = new PDO($connectionString, $this->user,$this->password);
             $this->connect->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION);
-            echo "success conection";
+            echo "conexion exitosa.. ";
 
         } catch (Exception $e) {
             $this->connect = 'error de conexion ';
@@ -31,9 +31,11 @@ class Conexion{
     }
 
 
+
 }
 
-$conect = new Conexion();
+$conectando = new Conexion();
+
 
     
 ?>
