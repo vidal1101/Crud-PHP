@@ -109,13 +109,17 @@ $query = mysqli_query($con, $sql);
                 <td><?php echo $row["Imagen"] ?></td>
 
                 <td>
-                  <button type="button" name="editar" id="'<?php echo $row["idLibro"] ?>'"  
-                  class="btn btn-warning"  >Editar </button>
+                  <a href="">
+                    <button type="button" name="editar" id="'<?php echo $row["idLibro"] ?>'"  
+                    class="btn btn-warning"  >Editar </button>
+                  </a>
                 </td>
 
                 <td>
-                  <button type="button" name="eliminar" id="'<?php echo $row["idLibro"] ?>'"  
-                  class="btn btn-danger"  >Eliminar </button>
+                  <a href="borrar.php?idlibro=<?php echo $row["idLibro"] ?>">
+                    <button type="button" name="eliminar" id="'<?php echo $row["idLibro"] ?>'"  
+                    class="btn btn-danger"  >Eliminar </button>
+                  </a>
                 </td>
 
 
@@ -151,7 +155,13 @@ $query = mysqli_query($con, $sql);
         </div>
         <div class="modal-body">
 
-          <form class="needs-validation" action="crear.php" method="post" id="formulario" enctype="multipart/form-data" >
+          <form class="needs-validation" action="crear.php" method="POST" id="formulario" enctype="multipart/form-data" >
+
+          <div class="col-12">
+              <label for="idlibro">IdLibro</label>
+              <input type="text" name="idlibro" id="idlibro" class="form-control" readonly>
+              <br>
+            </div>
 
             <div class="col-12">
               <label for="titulo">Titulo</label>
