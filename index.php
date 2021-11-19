@@ -1,3 +1,15 @@
+<?php
+
+
+include("conexion.php");
+$con = Getconectarse();
+
+$sql = "SELECT * FROM Libros";
+
+$query = mysqli_query($con, $sql);
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,6 +92,40 @@
               <th scope="col"><i class="bi bi-trash-fill"> Borrar</th>
             </tr>
           </thead>
+
+          <tbody>
+            <?php
+            while ( $row = mysqli_fetch_array($query) ) {
+
+            ?>
+
+              <tr>
+                <td> <?php echo $row["idLibro"] ?> </td>
+                <td><?php echo $row["Titulo"] ?>  </td>
+                <td> <?php echo $row["Autor"] ?> </td>
+                <td> <?php echo $row["Categoria"] ?></td>
+                <td><?php echo $row["Fecha"] ?></td>
+                <td><?php echo $row["Resumen"] ?></td>
+                <td><?php echo $row["Imagen"] ?></td>
+
+                <td>
+                  <button type="button" name="editar" id="'<?php echo $row["idLibro"] ?>'"  
+                  class="btn btn-warning"  >Editar </button>
+                </td>
+
+                <td>
+                  <button type="button" name="eliminar" id="'<?php echo $row["idLibro"] ?>'"  
+                  class="btn btn-danger"  >Eliminar </button>
+                </td>
+
+
+              </tr>
+
+              <?php
+              }
+              ?>
+
+          </tbody>
           
         </table>
 
@@ -105,7 +151,7 @@
         </div>
         <div class="modal-body">
 
-          <form class="needs-validation" method="post" id="formulario" enctype="multipart/form-data" action="">
+          <form class="needs-validation" action="crear.php" method="post" id="formulario" enctype="multipart/form-data" >
 
             <div class="col-12">
               <label for="titulo">Titulo</label>
@@ -144,7 +190,7 @@
 
             <div class="col-12">
               <label for="resumen">Resumén</label>
-              <input type="text" name="resuemn" id="resumen" class="form-control" >
+              <input type="text" name="resumen" id="resumen" class="form-control" >
               <br>
             </div>
 
@@ -194,21 +240,7 @@
 
     $(document).ready(function(){
         console.log("se cargo el documento... ");
-        var datatable = $('#datosLibros').DataTable({
-          "processing":true,
-          "serverSide":true,
-          "order":[],
-          "ajax":{
-            url:"registros.php",
-            type:"POST"
-          },
-          "columnsDefs":[
-            {
-              "targets":[0,3,4],
-              "orderable":false,
-            },
-          ]
-        });
+        
       }
 
     );

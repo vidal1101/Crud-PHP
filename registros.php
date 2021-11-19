@@ -1,7 +1,7 @@
 <?php
 
 
-include("conexion.php");
+include("Database.php");
 include("funciones.php");
 
 
@@ -17,7 +17,7 @@ if( isset( $_POST["search"]["value"] )){
 
 
 if( isset( $_POST["order"] )){
-    $query .= 'ORDER  BY ' . $_POST["order"]['0'] .' '. $_POST["order"]['0']['dir'] . ' ';
+    $query .= 'ORDER  BY ' . $_POST["order"]['0']["column"] .' '. $_POST["order"][0]['dir'] . ' ';
 }else{
     $query .= 'ORDER BY idLibro DESC ';
 }
@@ -33,8 +33,7 @@ if($_POST["length"] != -1 ){
 
 $stmt = $conexion ->prepare($query);
 $stmt -> execute();
-$result = $stmt -> fetchaAll();
-echo $result ;
+$result = $stmt -> fetchAll();
 $datos = array();
 $filtered_rows = $stmt -> rowCount();
 

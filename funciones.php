@@ -30,7 +30,7 @@ function subirImagen(){
  */
 function obtenerNombreImagen($idLibro){
 
-    include('conexion.php');
+    include('Database.php');
     $stmt = $conexion->prepare("SELECT Imagen FROM Libros WHERE idLibro ='$idLibro' ");
     $stmt->execute();
     $resultado = $stmt->fetchAll();
@@ -47,7 +47,7 @@ function obtenerNombreImagen($idLibro){
  */
 function obtenerLibros(){
 
-    include('conexion.php');
+    include('Database.php');
     $stmt = $conexion->prepare("SELECT * FROM Libros ");
     $stmt->execute();
     $resultado = $stmt->fetchAll();
