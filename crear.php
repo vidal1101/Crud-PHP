@@ -8,9 +8,9 @@ try {
     $titulo = $_POST['titulo'];
     $autor = $_POST['autor'];
     $categoria  = $_POST['categoria'];
-    $fecha = "2021-11-11";
+    $fecha = $_POST["fecha"];
     $resumen = $_POST['resumen'];
-    $imagen = "not image";
+    $imagen = "not image at the moment";
     
     
     $sql = "INSERT INTO Libros ( Titulo, Autor , Categoria, Fecha, Resumen , Imagen) VALUES ( '$titulo' , '$autor' , '$categoria' , '$fecha' , '$resumen', '$imagen' )";

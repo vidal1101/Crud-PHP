@@ -4,7 +4,7 @@
 include("conexion.php");
 $con = Getconectarse();
 
-$sql = "SELECT * FROM Libros";
+$sql = "SELECT idLibro, Titulo, Autor , Categoria, Fecha, Resumen , Imagen  FROM Libros ORDER BY idLibro DESC ";
 
 $query = mysqli_query($con, $sql);
 
@@ -19,8 +19,7 @@ $query = mysqli_query($con, $sql);
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
   <!--datatables js -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
@@ -40,8 +39,7 @@ $query = mysqli_query($con, $sql);
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Administración de libros</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -63,8 +61,7 @@ $query = mysqli_query($con, $sql);
 
         <div class="text-center">
           <!-- Button trigger modal -->
-          <button id="botonCrear" type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
-            data-bs-target="#modalLibro">
+          <button id="botonCrear" type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalLibro">
             <i class="bi bi-plus-circle-fill"></i>Crear
           </button>
         </div>
@@ -95,13 +92,13 @@ $query = mysqli_query($con, $sql);
 
           <tbody>
             <?php
-            while ( $row = mysqli_fetch_array($query) ) {
+            while ($row = mysqli_fetch_array($query)) {
 
             ?>
 
               <tr>
                 <td> <?php echo $row["idLibro"] ?> </td>
-                <td><?php echo $row["Titulo"] ?>  </td>
+                <td><?php echo $row["Titulo"] ?> </td>
                 <td> <?php echo $row["Autor"] ?> </td>
                 <td> <?php echo $row["Categoria"] ?></td>
                 <td><?php echo $row["Fecha"] ?></td>
@@ -109,28 +106,26 @@ $query = mysqli_query($con, $sql);
                 <td><?php echo $row["Imagen"] ?></td>
 
                 <td>
-                  <a href="">
-                    <button type="button" name="editar" id="'<?php echo $row["idLibro"] ?>'"  
-                    class="btn btn-warning"  >Editar </button>
+                  <a href="obtenerRegistro.php?id=<?php echo $row["idLibro"] ?>">
+                    <button type="button" name="editar" id="'<?php echo $row["idLibro"] ?>'" class="btn btn-warning">Editar </button>
                   </a>
                 </td>
 
                 <td>
                   <a href="borrar.php?idlibro=<?php echo $row["idLibro"] ?>">
-                    <button type="button" name="eliminar" id="'<?php echo $row["idLibro"] ?>'"  
-                    class="btn btn-danger"  >Eliminar </button>
+                    <button type="button" name="eliminar" id="'<?php echo $row["idLibro"] ?>'" class="btn btn-danger">Eliminar </button>
                   </a>
                 </td>
 
 
               </tr>
 
-              <?php
-              }
-              ?>
+            <?php
+            }
+            ?>
 
           </tbody>
-          
+
         </table>
 
       </div>
@@ -144,7 +139,7 @@ $query = mysqli_query($con, $sql);
 
 
 
-  
+
   <!--Modal-->
   <div class="modal fade" id="modalLibro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -155,13 +150,8 @@ $query = mysqli_query($con, $sql);
         </div>
         <div class="modal-body">
 
-          <form class="needs-validation" action="crear.php" method="POST" id="formulario" enctype="multipart/form-data" >
+          <form class="needs-validation" action="crear.php" method="POST" id="formulario" enctype="multipart/form-data">
 
-          <div class="col-12">
-              <label for="idlibro">IdLibro</label>
-              <input type="text" name="idlibro" id="idlibro" class="form-control" readonly>
-              <br>
-            </div>
 
             <div class="col-12">
               <label for="titulo">Titulo</label>
@@ -200,13 +190,13 @@ $query = mysqli_query($con, $sql);
 
             <div class="col-12">
               <label for="resumen">Resumén</label>
-              <input type="text" name="resumen" id="resumen" class="form-control" >
+              <input type="text" name="resumen" id="resumen" class="form-control">
               <br>
             </div>
 
             <div class="col-12">
               <label for="imagen">Imagen</label>
-              <input type="file" name="imagen" id="imagen" class="form-control" >
+              <input type="file" name="imagen" id="imagen" class="form-control">
               <span id="imagen-subida"></span>
               <br>
             </div>
@@ -216,7 +206,7 @@ $query = mysqli_query($con, $sql);
               <input type="hidden" name="idLibro" id="idLibro">
               <input type="hidden" name="opercaion" id="operacion">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="submit" class="btn btn-success" id="action"  name="action" >Guardar</button>
+              <button type="submit" class="btn btn-success" id="action" name="action">Guardar</button>
             </div>
 
           </form>
@@ -232,32 +222,24 @@ $query = mysqli_query($con, $sql);
 
 
   <!-- jQuery 3.5   VERSION ESTABLE-->
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
   <!-- script  datatables js -->
   <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
   <!-- funcionabilidades-->
 
   <script type="text/javascript">
-
-    $(document).ready(function(){
+    $(document).ready(function() {
         console.log("se cargo el documento... ");
-        
+
       }
 
     );
-
-    
-
-
   </script>
 
 
