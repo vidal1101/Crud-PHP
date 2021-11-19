@@ -65,7 +65,11 @@ $query = mysqli_query($con, $sql);
             <i class="bi bi-plus-circle-fill"></i>Crear
           </button>
         </div>
+          
+
+
       </div>
+
 
     </div>
     <br><br>
@@ -73,9 +77,14 @@ $query = mysqli_query($con, $sql);
     <!-- tabla -->
     <div class="container fondo">
 
+      <div class="text-center">
+        <input id="myInput" name="consulta" type="text" class="form-control" placeholder="Buscar libro...">
+      </div>
+      <br>
+
       <div class="table-responsive">
 
-        <table class="table table-hover" id="datosLibros">
+        <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">id Libro</th>
@@ -90,7 +99,7 @@ $query = mysqli_query($con, $sql);
             </tr>
           </thead>
 
-          <tbody>
+          <tbody id="libros">
             <?php
             while ($row = mysqli_fetch_array($query)) {
 
@@ -131,7 +140,18 @@ $query = mysqli_query($con, $sql);
       </div>
 
     </div>
+    <br><br>
 
+    <footer class="bg-primary text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 :
+            <a class="text-dark" href="https://gruporolosa.com/">
+              <span>Crud-PHP, Rolosa</span>
+            </a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
   </div>
 
@@ -224,9 +244,11 @@ $query = mysqli_query($con, $sql);
   <!-- jQuery 3.5   VERSION ESTABLE-->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
-  <!-- script  datatables js -->
-  <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+  
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -236,6 +258,12 @@ $query = mysqli_query($con, $sql);
   <script type="text/javascript">
     $(document).ready(function() {
         console.log("se cargo el documento... ");
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
 
       }
 
