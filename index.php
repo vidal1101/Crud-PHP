@@ -78,7 +78,7 @@ $query = mysqli_query($con, $sql);
     <div class="container fondo">
 
       <div class="text-center">
-        <input id="myInput" name="consulta" type="text" class="form-control" placeholder="Buscar libro...">
+        <input id="filtrar" name="consulta" type="text" class="form-control" placeholder="Buscar libro...">
       </div>
       <br>
 
@@ -99,7 +99,7 @@ $query = mysqli_query($con, $sql);
             </tr>
           </thead>
 
-          <tbody id="libros">
+          <tbody class="buscar">
             <?php
             while ($row = mysqli_fetch_array($query)) {
 
@@ -258,12 +258,23 @@ $query = mysqli_query($con, $sql);
   <script type="text/javascript">
     $(document).ready(function() {
         console.log("se cargo el documento... ");
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
+        
+
+        (function ($) {
+ 
+        $('#filtrar').keyup(function () {
+ 
+             var rex = new RegExp($(this).val(), 'i');
+ 
+             $('.buscar tr').hide();
+ 
+             $('.buscar tr').filter(function () {
+               return rex.test($(this).text());
+             }).show();
+ 
+        })
+ 
+        }(jQuery));
 
       }
 

@@ -11,6 +11,7 @@ $fecha = $_POST["fecha"];
 $resumen = $_POST['resumen'];
 $imagen = "not image at the moment";
 
+#echo $id;
 
 $sql = "UPDATE Libros SET Titulo= '$titulo' , Autor= '$autor' , Categoria='$categoria' , Fecha = '$fecha' , Resumen= '$resumen' , Imagen= '$imagen' WHERE idLibro = $id ";
 
@@ -20,7 +21,6 @@ if($query){
     Header("location: index.php ");
 }
 
-echo $id;
 
 
 
