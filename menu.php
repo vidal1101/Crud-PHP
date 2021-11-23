@@ -1,6 +1,15 @@
 <?php
 
 
+session_start();
+$varsession = $_SESSION['usuariosession'];
+
+if($varsession == null || $varsession = '' ){
+  echo 'no tiene permisos, inicie sesion';
+  die();
+
+}
+
 include("conexion.php");
 $con = Getconectarse();
 
@@ -45,7 +54,7 @@ $query = mysqli_query($con, $sql);
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
           <form class="d-flex">
-            <a href="index.php" class="btn btn-outline-success" type="submit">
+            <a href="cerrar_session.php" class="btn btn-outline-success" type="submit">
               Cerrar sesión
             </a>
           </form>

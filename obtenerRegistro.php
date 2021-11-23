@@ -1,5 +1,17 @@
 <?php
 
+/**
+ *valida las sessiones que esten activas, 
+ */
+session_start();
+$varsession = $_SESSION['usuariosession'];
+
+if($varsession == null || $varsession = '' ){
+  echo 'no tiene permisos, inicie sesion';
+  die();
+
+}
+
 include("conexion.php");
 $con = Getconectarse();
 
@@ -43,9 +55,9 @@ $row =  mysqli_fetch_array($query);
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
           <form class="d-flex">
-            <button class="btn btn-outline-success" type="submit">
+            <a href="cerrar_session.php" class="btn btn-outline-success" type="submit">
               Cerrar sesión
-            </button>
+            </a>
           </form>
         </div>
       </div>
@@ -61,9 +73,9 @@ $row =  mysqli_fetch_array($query);
           <!-- Button trigger modal -->
           <a href="index.php">
 
-              <button id="botonCrear"  type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalLibro">
+              <a href="menu.php" id="botonCrear"  type="button" class="btn btn-success w-100" >
                 <i class="bi bi-arrow-return-left"></i>Regresar
-              </button>
+              </a>
           </a>
         </div>
       </div>

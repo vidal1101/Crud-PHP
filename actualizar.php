@@ -1,5 +1,14 @@
 <?php
 
+session_start();
+$varsession = $_SESSION['usuariosession'];
+
+if($varsession == null || $varsession = '' ){
+  echo 'no tiene permisos, inicie sesion';
+  die();
+
+}
+
 include("conexion.php");
 $con = Getconectarse();
 

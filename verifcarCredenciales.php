@@ -2,6 +2,7 @@
 
 include("conexion.php");
 $con = Getconectarse();
+session_start();
 
 $usuario = $_POST["nombreusuario"];
 $contra = $_POST["contrasena"];
@@ -20,6 +21,11 @@ $row = mysqli_fetch_array($query);
 
 if( ($usuario == $row["Usuario"]) &&  (password_verify($contra, $row["Conttrasena"] ))  ){
 
+
+    /**
+     * aqui se crea la sesion y le asigna el valor del usuario 
+     */
+    $_SESSION['usuariosession'] = $usuario;
     #echo $row["Correo"];
     Header("Location: menu.php");
 }else{
