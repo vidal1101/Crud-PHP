@@ -95,7 +95,7 @@ $row =  mysqli_fetch_array($query);
     
                 <div class="col-12">
                   <label for="categoria">Categoria</label>
-                  <select class="custom-select" name="categoria" id="categoria" value="<?php echo $row["Titulo"] ?>"  required>
+                  <select class="custom-select" name="categoria" id="categoria" value="<?php echo $row["Categoria"] ?>"  required>
                     <option selected disabled  >Seleccionar..</option>
                     <!-- Dinamico -->
                     <option>Acción</option>

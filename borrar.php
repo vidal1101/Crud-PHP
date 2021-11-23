@@ -10,7 +10,7 @@ $sql = "DELETE FROM Libros WHERE idLibro = $idlibro";
 $query = mysqli_query($con, $sql);
 
 if($query){
-    Header("Location: index.php");
+    Header("Location: menu.php");
 }
 
 

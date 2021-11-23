@@ -8,7 +8,7 @@ $contra = $_POST["contrasena"];
 
 #echo $usuario.$contra;
 
-$sql = "SELECT * FROM Usuarios WHERE Conttrasena = '$contra' AND  Usuario = '$usuario' ";
+$sql = "SELECT * FROM Usuarios WHERE  Usuario = '$usuario' ";
 
 $query = mysqli_query($con , $sql);
 
@@ -18,12 +18,12 @@ $row = mysqli_fetch_array($query);
 #echo $row["Correo"]
 
 
-if($usuario == $row["Usuario"] && $contra == $row["Conttrasena"] ){
+if( ($usuario == $row["Usuario"]) &&  (password_verify($contra, $row["Conttrasena"] ))  ){
 
     #echo $row["Correo"];
-    Header("Location: index.php");
+    Header("Location: menu.php");
 }else{
-    Header("Location: login.php");
+    Header("Location: index.php");
 }
 
 ?>

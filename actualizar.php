@@ -18,7 +18,7 @@ $sql = "UPDATE Libros SET Titulo= '$titulo' , Autor= '$autor' , Categoria='$cate
 $query = mysqli_query($con , $sql);
 
 if($query){
-    Header("location: index.php ");
+    Header("location: menu.php ");
 }
 
 

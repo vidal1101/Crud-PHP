@@ -19,7 +19,7 @@ try {
     
     
     if($query){
-        Header("Location: index.php");
+        Header("Location: menu.php");
     }
 } catch(Throwable $thro) {
     echo($thro->getMessage());
