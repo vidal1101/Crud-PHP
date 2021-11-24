@@ -128,7 +128,39 @@ $query = mysqli_query($con, $sql);
                 <td> <?php echo $row["Categoria"] ?></td>
                 <td><?php echo $row["Fecha"] ?></td>
                 <td><?php echo $row["Resumen"] ?></td>
-                <td> <img src="img/403624.jpg" alt="" width="75px" height="75px" > </td>
+                <td> 
+                <?php 
+                  /**
+                   * mostrar imagen de cada libro
+                   */
+                  $id = $row["idLibro"];
+                  $path = "img/".$id;
+
+                  if(file_exists($path) ){
+
+                    $directorio = opendir($path);
+                    
+                    while ($archivo = readdir($directorio) ) {
+
+                      #reviso que no sea un directorio
+                      if(!is_dir($archivo) ){
+
+                        try {
+                          echo " <img src='img/$id/$archivo'  width='100px' height='100px' >";
+                          //code...
+                        } catch (\Throwable $th) {
+                          echo $th->getMessage();
+                        }
+
+                      }
+
+                    }
+
+                  }
+                
+                ?>
+
+                </td>
 
                 <td>
                   <a href="obtenerRegistro.php?id=<?php echo $row["idLibro"] ?>">
