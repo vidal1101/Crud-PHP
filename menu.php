@@ -128,7 +128,7 @@ $query = mysqli_query($con, $sql);
                 <td> <?php echo $row["Categoria"] ?></td>
                 <td><?php echo $row["Fecha"] ?></td>
                 <td><?php echo $row["Resumen"] ?></td>
-                <td><?php echo $row["Imagen"] ?></td>
+                <td> <img src="img/403624.jpg" alt="" width="75px" height="75px" > </td>
 
                 <td>
                   <a href="obtenerRegistro.php?id=<?php echo $row["idLibro"] ?>">
