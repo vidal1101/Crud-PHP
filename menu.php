@@ -74,14 +74,21 @@ $query = mysqli_query($con, $sql);
             <i class="bi bi-plus-circle-fill"></i>Crear
           </button>
         </div>
-          
 
+      </div>
+
+      <div class="col-4 offset-4">
+
+        <div class="text-center">
+          <!-- Button trigger modal -->
+          <h2>Usuario: <?php echo $_SESSION['usuariosession'];  ?> </h2>
+        </div>
 
       </div>
 
 
     </div>
-    <br><br>
+    <br>
 
     <!-- tabla -->
     <div class="container fondo">
@@ -224,8 +231,8 @@ $query = mysqli_query($con, $sql);
             </div>
 
             <div class="col-12">
-              <label for="imagen">Imagen</label>
-              <input type="file" name="imagen" id="imagen" class="form-control">
+              <label for="archivo">Imagen</label>
+              <input type="file" name="archivo" id="archivo" class="form-control">
               <span id="imagen-subida"></span>
               <br>
             </div>
