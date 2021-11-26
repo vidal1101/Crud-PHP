@@ -24,6 +24,14 @@ $query = mysqli_query($con, $sqliduser);
 
 $row= mysqli_fetch_array($query);
 
+#extracion de libros con este usuarios 
+
+$sql = " SELECT UsuariosLibros.idUsuario , Usuarios.Usuario ,Libros.idLibro , Libros.Titulo , Libros.Autor , Libros.Categoria , Libros.Resumen FROM UsuariosLibros INNER JOIN Libros on UsuariosLibros.idLibro = Libros.idLibro INNER JOIN Usuarios on UsuariosLibros.idUsuario = Usuarios.idUsuario WHERE UsuariosLibros.idUsuario = 7 ";
+
+$querylibro  = mysqli_query($con , $sql);
+
+
+
 
 
 ?>
@@ -102,7 +110,7 @@ $row= mysqli_fetch_array($query);
 
         <div class="text-center">
           <!-- Button trigger modal -->
-          <h1> Mis libros <?php echo $row["idUsuario"] ?> </h1>
+          <h1> Mis libros <?php echo $rowlibro["Categoria"] ?> </h1>
         </div>
 
       </div>
@@ -113,8 +121,113 @@ $row= mysqli_fetch_array($query);
 
 
 
+  <div class="container fondo">
+
+    <div class="text-center">
+      <input id="filtrar" name="consulta" type="text" class="form-control" placeholder="Buscar libro...">
+    </div>
+    <br>
+
+    <div class="table-responsive">
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">id Usuario</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">id Libro</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Resumen</th>
+            <th scope="col">Imagen Libro</th>
+            <th scope="col"><i class="bi bi-layout-text-sidebar-reverse"> Editar</th>
+            <th scope="col"><i class="bi bi-trash-fill"> Borrar</th>
+          </tr>
+        </thead>
+
+        <tbody class="buscar">
+          <?php
+          while ( $rowlibro  = mysqli_fetch_array($querylibro) ) {
+
+          ?>
+
+            <tr>
+              <td><?php echo $rowlibro["idUsuario"] ?></td>
+              <td><?php echo $rowlibro["Usuario"] ?></td>
+              <td> <?php echo $rowlibro["idLibro"] ?> </td>
+              <td><?php echo $rowlibro["Titulo"] ?> </td>
+              <td> <?php echo $rowlibro["Autor"] ?> </td>
+              <td> <?php echo $rowlibro["Categoria"] ?></td>
+              <td><?php echo $rowlibro["Resumen"] ?></td>
+              <td> 
+              <?php 
+                /**
+                 * mostrar imagen de cada libro
+                 */
+                $id = $rowlibro["idLibro"];
+                $path = "img/".$id;
+
+                if(file_exists($path) ){
+
+                  $directorio = opendir($path);
+                  
+                  while ($archivo = readdir($directorio) ) {
+
+                    #reviso que no sea un directorio
+                    if(!is_dir($archivo) ){
+
+                      try {
+                        echo " <img src='img/$id/$archivo'  width='100px' height='100px' >";
+                        //code...
+                      } catch (\Throwable $th) {
+                        echo $th->getMessage();
+                      }
+
+                    }
+
+                  }
+
+                }
+              
+              ?>
+
+              </td>
+
+              <td>
+                <a href="">
+                  <button type="button" name="editar" id="" class="btn btn-warning">Editar </button>
+                </a>
+              </td>
+
+              <td>
+                <a href="">
+                  <button type="button" name="eliminar" id="" class="btn btn-danger">Eliminar </button>
+                </a>
+              </td>
+
+
+            </tr>
+
+          <?php
+          }
+          ?>
+
+        </tbody>
+
+      </table>
+
+    </div>
 
   </div>
+    <br><br>
+
+
+
+
+
+
+</div>
 
 
 
