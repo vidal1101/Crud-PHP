@@ -30,8 +30,8 @@ $query = mysqli_query($con , $sql);
 
 
 if($query){
-    guardarImagen($id);
-    #Header("location: menu.php ");
+    #guardarImagen($id);
+    Header("location: menu.php ");
 }
 
 

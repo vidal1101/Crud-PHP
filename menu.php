@@ -47,12 +47,16 @@ $query = mysqli_query($con, $sql);
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Administración de libros</a>
+        <a class="navbar-brand" href="menu.php">Administración de libros</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="mislibros.php">Mis libros</a>
+            </li>
+          </ul>
           <form class="d-flex">
             <a href="cerrar_session.php" class="btn btn-outline-success" type="submit">
               Cerrar sesión
@@ -62,7 +66,7 @@ $query = mysqli_query($con, $sql);
       </div>
     </nav>
 
-    <h1 class="text-center">Crud con PHP</h1>
+    <h2 class="text-center">Usuario: <?php echo $_SESSION['usuariosession'];  ?></h2>
 
     <div class="row">
 
@@ -81,14 +85,14 @@ $query = mysqli_query($con, $sql);
 
         <div class="text-center">
           <!-- Button trigger modal -->
-          <h2>Usuario: <?php echo $_SESSION['usuariosession'];  ?> </h2>
+          <h1> Todos los libros</h1>
         </div>
 
       </div>
 
 
     </div>
-    <br>
+    
 
     <!-- tabla -->
     <div class="container fondo">
