@@ -107,16 +107,16 @@ $row =  mysqli_fetch_array($query);
     
                 <div class="col-12">
                   <label for="categoria">Categoria</label>
-                  <select class="custom-select" name="categoria" id="categoria" value="<?php echo $row["Categoria"] ?>"  required>
+                  <select class="custom-select" name="categoria" id="categoria"  required>
                     <option selected disabled  >Seleccionar..</option>
                     <!-- Dinamico -->
-                    <option>Acción</option>
-                    <option>Aventura</option>
-                    <option>Literatura</option>
-                    <option>Ficción</option>
-                    <option>Arte</option>
-                    <option>Cine</option>
-                    <option>Terror</option>
+                    <option <?php if ($row["Categoria"] == "Accion") { echo 'selected'; }?> value="Accion" >Acción</option>
+                    <option <?php if ($row["Categoria"] == "Aventura") { echo 'selected'; }?> value="Aventura" >Aventura</option>
+                    <option <?php if ($row["Categoria"] == "Literatura") { echo 'selected'; }?> value="Literatura" >Literatura</option>
+                    <option <?php if ($row["Categoria"] == "Ficcion") { echo 'selected'; }?>  value="Ficción" >Ficción</option>
+                    <option <?php if ($row["Categoria"] == "Arte") { echo 'selected'; }?> value="Arte">Arte</option>
+                    <option <?php if ($row["Categoria"] == "Cine") { echo 'selected'; }?> value="Cine">Cine</option>
+                    <option <?php if ($row["Categoria"] == "Terror") { echo 'selected'; }?>  value="Terror">Terror</option>
                   </select>
     
                   <br>
