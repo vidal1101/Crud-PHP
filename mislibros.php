@@ -24,9 +24,11 @@ $query = mysqli_query($con, $sqliduser);
 
 $row= mysqli_fetch_array($query);
 
+$idUsuario = $row["idUsuario"];
+
 #extracion de libros con este usuarios 
 
-$sql = " SELECT UsuariosLibros.idUsuario , Usuarios.Usuario ,Libros.idLibro , Libros.Titulo , Libros.Autor , Libros.Categoria , Libros.Resumen FROM UsuariosLibros INNER JOIN Libros on UsuariosLibros.idLibro = Libros.idLibro INNER JOIN Usuarios on UsuariosLibros.idUsuario = Usuarios.idUsuario WHERE UsuariosLibros.idUsuario = 7 ";
+$sql = " SELECT UsuariosLibros.idUsuarioLibro ,  UsuariosLibros.idUsuario , Usuarios.Usuario ,Libros.idLibro , Libros.Titulo , Libros.Autor , Libros.Categoria , Libros.Resumen FROM UsuariosLibros INNER JOIN Libros on UsuariosLibros.idLibro = Libros.idLibro INNER JOIN Usuarios on UsuariosLibros.idUsuario = Usuarios.idUsuario WHERE UsuariosLibros.idUsuario = $idUsuario ORDER BY UsuariosLibros.idUsuarioLibro DESC ";
 
 $querylibro  = mysqli_query($con , $sql);
 
@@ -97,9 +99,7 @@ $querylibro  = mysqli_query($con , $sql);
         <div class="text-center">
           <!-- Button trigger modal -->
 
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            <i class="bi bi-plus-circle-fill"></i> Añadir
-          </button>
+         
 
 
         </div>
@@ -133,6 +133,7 @@ $querylibro  = mysqli_query($con , $sql);
       <table class="table table-hover">
         <thead>
           <tr>
+          <th scope="col">id </th>
             <th scope="col">id Usuario</th>
             <th scope="col">Usuario</th>
             <th scope="col">id Libro</th>
@@ -141,7 +142,6 @@ $querylibro  = mysqli_query($con , $sql);
             <th scope="col">Categoria</th>
             <th scope="col">Resumen</th>
             <th scope="col">Imagen Libro</th>
-            <th scope="col"><i class="bi bi-layout-text-sidebar-reverse"> Editar</th>
             <th scope="col"><i class="bi bi-trash-fill"> Borrar</th>
           </tr>
         </thead>
@@ -153,6 +153,7 @@ $querylibro  = mysqli_query($con , $sql);
           ?>
 
             <tr>
+              <td><?php echo $rowlibro["idUsuarioLibro"] ?></td>
               <td><?php echo $rowlibro["idUsuario"] ?></td>
               <td><?php echo $rowlibro["Usuario"] ?></td>
               <td> <?php echo $rowlibro["idLibro"] ?> </td>
@@ -194,15 +195,10 @@ $querylibro  = mysqli_query($con , $sql);
 
               </td>
 
-              <td>
-                <a href="">
-                  <button type="button" name="editar" id="" class="btn btn-warning">Editar </button>
-                </a>
-              </td>
 
               <td>
-                <a href="">
-                  <button type="button" name="eliminar" id="" class="btn btn-danger">Eliminar </button>
+                <a href="borrar.php?myidLibro=<?php echo $rowlibro["idUsuarioLibro"] ?>" >
+                  <button type="button" name="eliminar" id="" class="btn btn-danger">borrar de mis Libros  </button>
                 </a>
               </td>
 
@@ -278,6 +274,32 @@ $querylibro  = mysqli_query($con , $sql);
 
 
   <!-- funcionabilidades-->
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        console.log("se cargo el documento... ");
+        
+
+        (function ($) {
+ 
+        $('#filtrar').keyup(function () {
+ 
+             var rex = new RegExp($(this).val(), 'i');
+ 
+             $('.buscar tr').hide();
+ 
+             $('.buscar tr').filter(function () {
+               return rex.test($(this).text());
+             }).show();
+ 
+        })
+ 
+        }(jQuery));
+
+      }
+
+    );
+  </script>
 
 
 </body>

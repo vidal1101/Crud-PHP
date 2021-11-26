@@ -116,6 +116,7 @@ $query = mysqli_query($con, $sql);
               <th scope="col">Imagen Libro</th>
               <th scope="col"><i class="bi bi-layout-text-sidebar-reverse"> Editar</th>
               <th scope="col"><i class="bi bi-trash-fill"> Borrar</th>
+              <th scope="col"> <i class="bi bi-journal-bookmark-fill"></i> Agregar a mis libros</th>
             </tr>
           </thead>
 
@@ -166,6 +167,7 @@ $query = mysqli_query($con, $sql);
 
                 </td>
 
+                <!-- editar -->
                 <td>
                   <a href="obtenerRegistro.php?id=<?php echo $row["idLibro"] ?>">
                     <button type="button" name="editar" id="'<?php echo $row["idLibro"] ?>'" class="btn btn-warning">Editar </button>
@@ -173,11 +175,17 @@ $query = mysqli_query($con, $sql);
                 </td>
 
                 <td>
-                  <a href="borrar.php?idlibro=<?php echo $row["idLibro"] ?>">
+                  <a href="borrar.php?idlibro=<?php echo $row["idLibro"] ?>" >
                     <button type="button" name="eliminar" id="'<?php echo $row["idLibro"] ?>'" class="btn btn-danger">Eliminar </button>
                   </a>
                 </td>
 
+               
+                <td>
+                  <a href="agregarMisLibros.php?idLibro=<?php echo $row["idLibro"] ?>">
+                    <button type="button" name="eliminar" id="'<?php echo $row["idLibro"] ?>'" class="btn btn-primary">Agregar a mis libros </button>
+                  </a>
+                </td>
 
               </tr>
 
