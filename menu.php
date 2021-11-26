@@ -151,7 +151,7 @@ $query = mysqli_query($con, $sql);
                       if(!is_dir($archivo) ){
 
                         try {
-                          echo " <img src='img/$id/$archivo'  width='100px' height='100px' >";
+                          echo " <img src='img/$id/$archivo'  width='130px' height='130px' >";
                           //code...
                         } catch (\Throwable $th) {
                           echo $th->getMessage();
