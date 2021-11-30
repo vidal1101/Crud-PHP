@@ -19,16 +19,20 @@ try {
     $categoria  = $_POST['categoria'];
     $fecha = $_POST["fecha"];
     $resumen = $_POST['resumen'];
-    $imagen = "not image at the moment";
+    $binariosExtraidos = '';
+
+    $binariosExtraidos = guardarImageBD($con);
+
+    #echo $binariosExtraidos;
+
     
-    
-    $sql = "INSERT INTO Libros ( Titulo, Autor , Categoria, Fecha, Resumen , Imagen) VALUES ( '$titulo' , '$autor' , '$categoria' , '$fecha' , '$resumen', '$imagen' )";
+    $sql = "INSERT INTO Libros ( Titulo, Autor , Categoria, Fecha, Resumen , Imagen) VALUES ( '$titulo' , '$autor' , '$categoria' , '$fecha' , '$resumen', '$binariosExtraidos' )";
     
     $query = mysqli_query($con , $sql );
 
 
     /**
-     * proceso de guardar imagen .. 
+     * proceso de guardar imagen de forma local  .. 
      */
     
     $idInsert = "SELECT idLibro FROM Libros ORDER BY idLibro   DESC limit 1 ";
@@ -40,15 +44,32 @@ try {
 
     
     if($query){
+        echo 'insertado';
 
-        guardarImagen($row);
-
+        #guardarImagenLocal($row);
         Header("Location: menu.php");
     }
 } catch(Throwable $thro) {
     echo($thro->getMessage());
 }
 
+
+function  guardarImageBD($con ){
+
+    if( isset($_FILES["archivo"]["name"]) ){
+
+        $tamanoArchivo  = $_FILES["archivo"]["size"];
+        $imagenSubida  = fopen( $_FILES["archivo"]["tmp_name"], 'r' );
+        
+        $binariosImagen = fread($imagenSubida , $tamanoArchivo);
+
+        $binariosImagen = mysqli_escape_string($con ,  $binariosImagen);
+
+        return $binariosImagen;
+
+    }
+
+}
 
 
 
@@ -59,7 +80,7 @@ try {
  * @param 
  * @return
  */
-function guardarImagen ($row ){
+function guardarImagenLocal ($row ){
 
     try {
 
