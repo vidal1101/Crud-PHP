@@ -14,23 +14,6 @@ try {
     include("conexion.php");
     $con = Getconectarse();
     
-    $titulo = $_POST['titulo'];
-    $autor = $_POST['autor'];
-    $categoria  = $_POST['categoria'];
-    $fecha = $_POST["fecha"];
-    $resumen = $_POST['resumen'];
-    $binariosExtraidos = '';
-
-    $binariosExtraidos = guardarImageBD($con);
-
-    #echo $binariosExtraidos;
-
-    
-    $sql = "INSERT INTO Libros ( Titulo, Autor , Categoria, Fecha, Resumen , Imagen) VALUES ( '$titulo' , '$autor' , '$categoria' , '$fecha' , '$resumen', '$binariosExtraidos' )";
-    
-    $query = mysqli_query($con , $sql );
-
-
     /**
      * proceso de guardar imagen de forma local  .. 
      */
@@ -41,22 +24,35 @@ try {
 
     $row = mysqli_fetch_array($id);
 
-
     
-    if($query){
-        echo 'insertado';
+    if( guardarImageBD($con ) ){
+
+        echo 'insertado ';
 
         #guardarImagenLocal($row);
-        Header("Location: menu.php");
+        #Header("Location: menu.php");
     }
 } catch(Throwable $thro) {
     echo($thro->getMessage());
 }
 
 
+
+
+
 function  guardarImageBD($con ){
 
+
+
     if( isset($_FILES["archivo"]["name"]) ){
+
+        $archivosPermitidos = array( "image/gif", "image/png" , "image/svg", "image/jpeg" , "image/jpg");
+
+        $tipoArchivo = $_FILES['archivo']['type'];
+
+        if( in_array($tipoArchivo,$archivosPermitidos) ==false ){
+            die("Archivo no permitido");
+        }
 
         $tamanoArchivo  = $_FILES["archivo"]["size"];
         $imagenSubida  = fopen( $_FILES["archivo"]["tmp_name"], 'r' );
@@ -65,7 +61,20 @@ function  guardarImageBD($con ){
 
         $binariosImagen = mysqli_escape_string($con ,  $binariosImagen);
 
-        return $binariosImagen;
+
+        $titulo = $_POST['titulo'];
+        $autor = $_POST['autor'];
+        $categoria  = $_POST['categoria'];
+        $fecha = $_POST["fecha"];
+        $resumen = $_POST['resumen'];
+
+
+
+        $sql = "INSERT INTO Libros ( Titulo, Autor , Categoria, Fecha, Resumen , Imagen , TipoImagen ) VALUES ( '$titulo' , '$autor' , '$categoria' , '$fecha' , '$resumen', '$binariosImagen' , '$tipoArchivo' )";
+    
+        $query = mysqli_query($con , $sql );
+
+        return $query;
 
     }
 
