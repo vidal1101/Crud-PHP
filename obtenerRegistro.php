@@ -137,38 +137,10 @@ $row =  mysqli_fetch_array($query);
     
                 <div class="col-12">
                   <label for="archivo">Nueva imagen</label>
-                  <input type="file" name="archivo" value="<?php echo $row["Imagen"] ?>" id="archivo" class="form-control">
+                  <input type="file" name="archivo" id="archivo" class="form-control">
                   <label for="">Portada actual:  </label>
-                  <?php 
-                  /**
-                   * mostrar imagen de cada libro
-                   */
-                  $id = $row["idLibro"];
-                  $path = "img/".$id;
-
-                  if(file_exists($path) ){
-
-                    $directorio = opendir($path);
-                    
-                    while ($archivo = readdir($directorio) ) {
-
-                      #reviso que no sea un directorio
-                      if(!is_dir($archivo) ){
-
-                        try {
-                          echo " <img src='img/$id/$archivo'  width='150x' height='150px' >";
-                          //code...
-                        } catch (\Throwable $th) {
-                          echo $th->getMessage();
-                        }
-
-                      }
-
-                    }
-
-                  }
-                
-                ?>
+                  
+                  <img width="130" src="data:<?php echo $row['TipoImagen']; ?>;base64,<?php echo  base64_encode($row['Imagen']); ?>">
                   <span id="imagen-subida"></span>
                   <br>
                 </div>

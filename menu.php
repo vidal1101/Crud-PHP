@@ -133,39 +133,12 @@ $query = mysqli_query($con, $sql);
                 <td> <?php echo $row["Categoria"] ?></td>
                 <td><?php echo $row["Fecha"] ?></td>
                 <td><?php echo $row["Resumen"] ?></td>
-                <td> 
-                <?php 
-                  /**
-                   * mostrar imagen de cada libro
-                   */
-                  $id = $row["idLibro"];
-                  $path = "img/".$id;
 
-                  if(file_exists($path) ){
-
-                    $directorio = opendir($path);
-                    
-                    while ($archivo = readdir($directorio) ) {
-
-                      #reviso que no sea un directorio
-                      if(!is_dir($archivo) ){
-
-                        try {
-                          echo " <img src='img/$id/$archivo'  width='130px' height='130px' >";
-                          //code...
-                        } catch (\Throwable $th) {
-                          echo $th->getMessage();
-                        }
-
-                      }
-
-                    }
-
-                  }
-                
-                ?>
-
+                <td>
+                     <img width="130" src="data:<?php echo $row['TipoImagen']; ?>;base64,<?php echo  base64_encode($row['Imagen']); ?>">
                 </td>
+
+
 
                 <!-- editar -->
                 <td>

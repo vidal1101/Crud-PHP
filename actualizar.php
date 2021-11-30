@@ -12,79 +12,55 @@ if($varsession == null || $varsession = '' ){
 include("conexion.php");
 $con = Getconectarse();
 
-$id = $_POST["idlibro"];
-$titulo = $_POST['titulo'];
-$autor = $_POST['autor'];
-$categoria  = $_POST['categoria'];
-$fecha = $_POST["fecha"];
-$resumen = $_POST['resumen'];
-$imagen = "not image at the moment";
-
-#echo $id;
-
-$sql = "UPDATE Libros SET Titulo= '$titulo' , Autor= '$autor' , Categoria='$categoria' , Fecha = '$fecha' , Resumen= '$resumen' , Imagen= '$imagen' WHERE idLibro = $id ";
-
-$query = mysqli_query($con , $sql);
-
-
-
-
-if($query){
+if( guardarImageBD($con) ){
+    #echo "se edito con exito";
     #guardarImagen($id);
     Header("location: menu.php ");
 }
 
 
 
+function  guardarImageBD($con ){
 
-/**
- * funcion para guardar imagen directamente en el proyecto, 
- * se crea una carpeta con el numero de id de la insercion para luego ejecutar el guardado
- *
- * @param 
- * @return
- */
-function guardarImagen ($row ){
 
-  try {
 
-      if( $_FILES["archivo"]["error"] >0 ){
-          echo "error al cargar archivo";
-      }else{
-          #se procede a guardar
-          $archivosPermitidos = array( "image/gif", "image/png" , "image/svg", "image/jpeg" , "image/jpg");
+    if( isset($_FILES["archivo"]["name"]) ){
 
-          #verificar que el archivo sean de los permitidos en el arrays
-          if( in_array( $_FILES["archivo"]["type"], $archivosPermitidos )  ){
-              
-              #creo la ruta del archivo 
-              $ruta = 'img/'.$row["idLibro"].'/';
+        $archivosPermitidos = array( "image/gif", "image/png" , "image/svg", "image/jpeg" , "image/jpg");
 
-              $archivo = $ruta.$_FILES["archivo"]["name"];
-  
-              mkdir($ruta);
-  
-              $moverArchivo = @move_uploaded_file(  $_FILES["archivo"]["tmp_name"] , $archivo );
-  
-              if($moverArchivo){
-                  echo "se guardo el archivo";
-              }else {
-                  echo "no se guardo ".$moverArchivo;
-              }
-              
-  
-  
-          }else{
-              echo "el formato de archivo no esta permitido";
-          }
-      }
-      
-  } catch (\Throwable $thro) {
+        $tipoArchivo = $_FILES['archivo']['type'];
 
-     echo($thro->getMessage());
-  }
+        if( in_array($tipoArchivo,$archivosPermitidos) ==false ){
+            die("Archivo no permitido");
+        }
+
+        $tamanoArchivo  = $_FILES["archivo"]["size"];
+        $imagenSubida  = fopen( $_FILES["archivo"]["tmp_name"], 'r' );
+        
+        $binariosImagen = fread($imagenSubida , $tamanoArchivo);
+
+        $binariosImagen = mysqli_escape_string($con ,  $binariosImagen);
+
+
+        $id = $_POST["idlibro"];
+        $titulo = $_POST['titulo'];
+        $autor = $_POST['autor'];
+        $categoria  = $_POST['categoria'];
+        $fecha = $_POST["fecha"];
+        $resumen = $_POST['resumen'];
+
+
+
+        $sql = "UPDATE Libros SET Titulo= '$titulo' , Autor= '$autor' , Categoria='$categoria' , Fecha = '$fecha' , Resumen= '$resumen' , Imagen= '$binariosImagen' , TipoImagen = '$tipoArchivo' WHERE idLibro = $id ";
+    
+        $query = mysqli_query($con , $sql );
+
+        return $query;
+
+    }
 
 }
+
 
 
 

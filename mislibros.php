@@ -28,7 +28,7 @@ $idUsuario = $row["idUsuario"];
 
 #extracion de libros con este usuarios 
 
-$sql = " SELECT UsuariosLibros.idUsuarioLibro ,  UsuariosLibros.idUsuario , Usuarios.Usuario ,Libros.idLibro , Libros.Titulo , Libros.Autor , Libros.Categoria , Libros.Resumen FROM UsuariosLibros INNER JOIN Libros on UsuariosLibros.idLibro = Libros.idLibro INNER JOIN Usuarios on UsuariosLibros.idUsuario = Usuarios.idUsuario WHERE UsuariosLibros.idUsuario = $idUsuario ORDER BY UsuariosLibros.idUsuarioLibro DESC ";
+$sql = " SELECT UsuariosLibros.idUsuarioLibro ,  UsuariosLibros.idUsuario , Usuarios.Usuario ,Libros.idLibro , Libros.Titulo , Libros.Autor , Libros.Categoria , Libros.Resumen , Libros.Imagen , Libros.TipoImagen FROM UsuariosLibros INNER JOIN Libros on UsuariosLibros.idLibro = Libros.idLibro INNER JOIN Usuarios on UsuariosLibros.idUsuario = Usuarios.idUsuario WHERE UsuariosLibros.idUsuario = $idUsuario ORDER BY UsuariosLibros.idUsuarioLibro DESC ";
 
 $querylibro  = mysqli_query($con , $sql);
 
@@ -161,38 +161,9 @@ $querylibro  = mysqli_query($con , $sql);
               <td> <?php echo $rowlibro["Autor"] ?> </td>
               <td> <?php echo $rowlibro["Categoria"] ?></td>
               <td><?php echo $rowlibro["Resumen"] ?></td>
-              <td> 
-              <?php 
-                /**
-                 * mostrar imagen de cada libro
-                 */
-                $id = $rowlibro["idLibro"];
-                $path = "img/".$id;
-
-                if(file_exists($path) ){
-
-                  $directorio = opendir($path);
-                  
-                  while ($archivo = readdir($directorio) ) {
-
-                    #reviso que no sea un directorio
-                    if(!is_dir($archivo) ){
-
-                      try {
-                        echo " <img src='img/$id/$archivo'  width='100px' height='100px' >";
-                        //code...
-                      } catch (\Throwable $th) {
-                        echo $th->getMessage();
-                      }
-
-                    }
-
-                  }
-
-                }
               
-              ?>
-
+              <td>
+                 <img width="130" src="data:<?php echo $rowlibro['TipoImagen']; ?>;base64,<?php echo  base64_encode($rowlibro['Imagen']); ?>">
               </td>
 
 
