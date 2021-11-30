@@ -30,7 +30,7 @@ try {
         echo 'insertado ';
 
         #guardarImagenLocal($row);
-        #Header("Location: menu.php");
+        Header("Location: menu.php");
     }
 } catch(Throwable $thro) {
     echo($thro->getMessage());
