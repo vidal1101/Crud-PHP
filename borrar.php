@@ -27,11 +27,15 @@ $query = mysqli_query($con, $sql);
 $queryMylibro = mysqli_query($con, $sqlmylibro);
 
 if($query){
+
     Header("Location: menu.php");
+}else{
+  echo "este libro esta tiene un Usuario";
 }
 
 
 if($queryMylibro){
+ 
   Header("Location: mislibros.php");
 }
 
