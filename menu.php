@@ -136,6 +136,7 @@ $query = mysqli_query($con, $sql);
                 <td> <?php echo $row["Categoria"] ?></td>
                 <td><?php echo $row["Fecha"] ?></td>
                 <td><?php echo $row["Resumen"] ?></td>
+<<<<<<< HEAD
 
                 <td>
                      <img width="130" src="data:<?php echo $row['TipoImagen']; ?>;base64,<?php echo  base64_encode($row['Imagen']); ?>">
@@ -144,6 +145,14 @@ $query = mysqli_query($con, $sql);
 
 
 =======
+
+
+>>>>>>> developerVidal
+=======
+
+                <td>
+                     <img width="130" src="data:<?php echo $row['TipoImagen']; ?>;base64,<?php echo  base64_encode($row['Imagen']); ?>">
+                </td>
 
 
 >>>>>>> developerVidal
@@ -322,25 +331,7 @@ $query = mysqli_query($con, $sql);
 
       },
 
-      document.getElementById("file").onchange = function(e) {
-      // Creamos el objeto de la clase FileReader
-      let reader = new FileReader();
-
-      // Leemos el archivo subido y se lo pasamos a nuestro fileReader
-      reader.readAsDataURL(e.target.files[0]);
-
-      // Le decimos que cuando este listo ejecute el código interno
-      reader.onload = function(){
-        let preview = document.getElementById('preview'),
-                image = document.createElement('img');
-
-        image.src = reader.result;
-
-        preview.innerHTML = '';
-        preview.append(image);
-      };
-    },
-      
+    
 
     );
   </script>
